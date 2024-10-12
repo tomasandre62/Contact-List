@@ -21,8 +21,8 @@ const ContactCard = ({ contact }) => {
         Swal.fire('El contacto NO fue eliminado', '', 'info');
       }
     });
-
   }
+
   return (
     <div className="col-lg-6 col-xl-4 col-md-6 col-sm-12">
       <div className="card card-default p-2 contact-card">

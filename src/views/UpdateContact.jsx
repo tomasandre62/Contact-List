@@ -10,7 +10,9 @@ export const UpdateContact = () => {
   const params = useParams();
 
   const findContact = () => {
+    console.log(store.contactList);
     const contactEdit = store.contactList.find((element) => element.id == params.id)
+    console.log(contactEdit);
     setContact(contactEdit);
   };
 
