@@ -2,7 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
   return {
     store: {
-      username: 'pancho',//Cambiar acá con el nombre de usuario que quieran utilizar
+      username: 'Tomas_Ramirez',//Cambiar acá con el nombre de usuario que quieran utilizar
       contactList: [],
       apiUrlContactList: 'https://playground.4geeks.com/contact'
     },
@@ -97,30 +97,32 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      updateContact: async (contact, id) => {
+      updateContact: async (id, updatedContact) => {
         const { username, apiUrlContactList } = getStore();
-
+      
         try {
           const response = await fetch(`${apiUrlContactList}/agendas/${username}/contacts/${id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(contact)
+            body: JSON.stringify(updatedContact)
           });
-
+      
           if (response.ok) {
             console.log('Datos de contacto actualizados con éxito!');
-            getActions().getContactList();
+            getActions().getContactList(); // Actualiza la lista de contactos
+            return true; // Devuelve true si la operación fue exitosa
           } else {
             console.log('Error: ', response.status, response.statusText);
-            //return { error: { status: response.status, statusText: response.statusText }};
-            return false;
+            return false; // Devuelve false si ocurrió un error
           }
         } catch (error) {
           console.log(error);
+          return false; // Devuelve false si hubo un error en la ejecución
         }
       }
+      
     }
   };
 };

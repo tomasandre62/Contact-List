@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Importa Link para redirigir en el botón Editar
 import Swal from 'sweetalert2';
 
 const ContactCard = ({ contact }) => {
-  const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context); // Solo necesitas actions si no usas store
 
   const handleDelete = async (id) => {
     Swal.fire({
@@ -16,7 +16,7 @@ const ContactCard = ({ contact }) => {
     }).then((response) => {
       if (response.isConfirmed) {
         Swal.fire('Contacto eliminado con éxito', '', 'success');
-        actions.deleteContact(id);
+        actions.deleteContact(id); // Llama a la acción para eliminar el contacto
       } else if (response.isDenied) {
         Swal.fire('El contacto NO fue eliminado', '', 'info');
       }
@@ -24,9 +24,13 @@ const ContactCard = ({ contact }) => {
   }
 
   return (
-    <div className="col-lg-6 col-xl-4 col-md-6 col-sm-12">
+    <div className="col-12">
       <div className="card card-default p-2 contact-card">
-        <img src="https://icons.veryicon.com/png/o/miscellaneous/rookie-official-icon-gallery/225-default-avatar.png" className="mr-3 img-fluid rounded" alt="Avatar Image" />
+        <img 
+          src="https://icons.veryicon.com/png/o/miscellaneous/rookie-official-icon-gallery/225-default-avatar.png" 
+          className="mr-3 img-fluid rounded" 
+          alt="Avatar Image" 
+        />
         <div className="media-body ms-3">
           <h5 className="mt-0 mb-2 text-dark">{contact.name}</h5>
           <ul className="list-unstyled text-smoke text-smoke">
@@ -43,6 +47,21 @@ const ContactCard = ({ contact }) => {
               <span>{contact.phone}</span>
             </li>
           </ul>
+
+          {/* Botón Editar */}
+          <Link to={`/update/${contact.id}`}>
+            <button type="button" className="btn btn-secondary">Editar</button>
+          </Link>
+
+          {/* Botón Eliminar */}
+          <button 
+            style={{ marginLeft: 5 }} 
+            type="button" 
+            className="btn btn-danger" 
+            onClick={() => handleDelete(contact.id)} // Asocia la función de eliminar al botón
+          >
+            Eliminar
+          </button>
         </div>
       </div>
     </div>

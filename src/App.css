@@ -48,3 +48,10 @@ a {
   width: 100px;
   height: 100px;
 }
+.formulario1{
+  margin: auto;
+  background-color: white;
+  padding: 20px;
+  color: black;
+  border-radius: 5px;
+}
